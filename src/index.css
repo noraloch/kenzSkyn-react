@@ -1,13 +1,139 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin:0;
+  background-color: #adc7b6;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar {
+  overflow: hidden;
+  background-color:#ffffff;
+  position: relative; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  height: 15%;
+  display: flex;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+.logo {
+  float: left;
+  padding: 4px;
+  margin-left: 20px;
+}
+.right-links {
+  display: flex;
+  float: right;
+  margin-top: 18px;
+  margin-left: 38%;
+}
+.link {
+  float: left;
+  display: block;
+  color: #000000;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.welcome {
+  float: left;
+  display: block;
+  color: #0e4231;
+  text-align:left;
+  padding: 12px 14px;
+  font-size: 18px;
+  font-style:oblique;
+}
+main {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 10%;
+  display: flex;
+  text-align: center;
+  max-width: 1280px;
+}
+
+
+.quiz {
+  display: flex;
+  margin-left: 25%;
+  background-color: #7b9982;
+  width: 450px;
+  min-height: 200px;
+  height: min-content;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 10px 10px 42px 0px rgba(103, 98, 98, 0.75);
+  justify-content: space-evenly;
+}
+
+
+/* QUESTION/TIMER/LEFT SECTION */
+.question-section {
+  width: 100%;
+  position: relative;
+}
+
+.question-count {
+  margin-bottom: 20px;
+}
+
+.question-count span {
+  font-size: 22px;
+}
+
+.question-text {
+  margin-bottom: 15px;
+}
+
+.timer-text {
+  background: rgb(230, 153, 12);
+  padding: 15px;
+  margin-top: 20px;
+  margin-right: 20px;
+  border: 5px solid rgb(255, 189, 67);
+  border-radius: 15px;
+  text-align: center;
+}
+
+/* ANSWERS/RIGHT SECTION */
+.answer-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.answer-button {
+  margin: 10px;
+}
+
+button {
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #62856e;
+  border-radius: 10px;
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #dee3e9;
+  cursor: pointer;
+  width:"auto";
+}
+
+
+button:hover {
+  background-color: #306645;
+}
+
+button:focus {
+  outline: none;
+}
+
+button svg {
+  margin-right: 5px;
 }
