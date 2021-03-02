@@ -124,29 +124,28 @@ function Quiz({ currentUser, setCurrentUser, setProductsState }) {
                     ));
                     console.log("check", userProducts);
                     setProductsState(userProducts);
+                    addRecommended(userProducts)
                     history.push(`/recommendation`);
-                    // if (currentUser.acne) {
-                    //     let acneProducts = products.filter(product => product.skin_attribute === "acne");
-                    //     setProductsState(acneProducts);
-                    //     console.log("acne products", acneProducts);
-                    // };
-                    // if (currentUser.oily_skin) {
-                    //     let oilySkinProducts = products.filter(product => product.skin_attribute === "oily_skin");
-                    //     setProductsState(oilySkinProducts);
-                    //     console.log("oily products", oilySkinProducts);
-                    // };
-                    // if (currentUser.dry_skin) {
-                    //     let drySkinProducts = products.filter(product => product.skin_attribute === "dry_skin");
-                    //     setProductsState(drySkinProducts);
-                    //     console.log("dry products", drySkinProducts)
-                    // };
-                    // if (currentUser.combination_skin) {
-                    //     let combiSkinProducts = products.filter(product => product.skin_attribute === "combination_skin");
-                    //     setProductsState(combiSkinProducts);
-                    //     console.log("oily products", combiSkinProducts)
-                    // };
                 });
         };
+    };
+    function addRecommended(products){
+        products.map(p=>{
+            let recommendedObj = {
+                user_id: currentUser.id,
+                product_id: p.id
+            };
+            fetch(`http://localhost:3000/recommendations`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(recommendedObj),
+            })
+            // .then(r=>r.json())
+            // .then(obj=>console.log(obj))
+        });
+
     };
 
 

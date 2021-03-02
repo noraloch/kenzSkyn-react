@@ -4,12 +4,14 @@ import NavBar from "./NavBar";
 import Home from "./Home";
 import Quiz from "./Quiz";
 import Login from "./Login";
-import RecommendedProduct from "./RecommendedProduct";
+import RecommendationsList from "./RecommendationsList";
+import Profile from "./Profile";
 
 
 function App() {
     const [currentUser, setCurrentUser] = useState(null);
     const [productsState, setProductsState] = useState([]);
+    const [recommendationsState, setRecommendationsState] = useState([]);
 
     // autologin
     useEffect(() => {
@@ -20,7 +22,15 @@ function App() {
                 setCurrentUser(user);
             });
     }, []);
-console.log(productsState);
+
+    useEffect(()=>{
+        fetch("http://localhost:3000/recommendations")
+            .then((r) => r.json())
+            .then((recommendations) => {
+                setRecommendationsState(recommendations);
+            });
+    }, []);
+
     return (
         <>
             <NavBar currentUser={currentUser} />
@@ -30,13 +40,18 @@ console.log(productsState);
                         <Home key="home" />
                     </Route>
                     <Route path="/quiz">
+                        { !currentUser ? <h2>Please login so you can take the quiz!</h2> : null}
                         { currentUser ? <Quiz key={currentUser.id} currentUser={currentUser} setCurrentUser={setCurrentUser} setProductsState={setProductsState} /> : null }
                     </Route>
                     <Route path="/login">
                         <Login currentUser={currentUser} setCurrentUser={setCurrentUser} key="login" />
                     </Route>
-                    <Route path="/recommendation">
-                        {productsState.length > 0 && currentUser.oily_skin !== undefined ? productsState.map(p => <RecommendedProduct productObj={p} key={p.id} />) : null}
+                    <Route path="/recommendations">
+                    {productsState.length < 1 ? <h2>Please take the quiz so you can see your recomendations</h2>
+                    : <RecommendationsList recommendationsState={recommendationsState} productsState={productsState} currentUser={currentUser}/> }
+                    </Route>
+                    <Route path="/profile">
+                        { currentUser ? <Profile currentUser={currentUser} /> : null }
                     </Route>
                 </Switch>
             </main>

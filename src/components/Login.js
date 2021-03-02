@@ -54,7 +54,7 @@ function Login({ setCurrentUser }) {
             return <p key={error}>{error}</p>;
           })}
           <button type="submit" value="Login" >Login</button>
-        </form>
+        </form>=
       </div>
     );
 }
