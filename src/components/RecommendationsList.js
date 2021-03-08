@@ -1,33 +1,27 @@
 import React from "react";
 import RecommendedProduct from "./RecommendedProduct";
 
-function recommendationsList({ productsState, currentUser, recomendationsState }) {
+function recommendationsList({ productsMain, currentUser, recommendationsState }) {
     let recommendationComponent = null;
-    // Only render when there are recommendations
-    if (recomendationsState.length > 0) {
-        // Then - find the products for the products listed in recommendedState
-        let recommendedProducts = productsState.filter(product => {
-            recomendationsState.forEach(recommendation => {
-                return product.id === recommendation.id;
-            });
-        }).map(product => {
-            // Map over recommended products to get corresponding recommendation data
-            recomendationsState.forEach(recommendation => {
-                if(product.id === recommendation.id) {
-                    return {product, recommendation}
-                }
-            })
+    // Then - find the products for the products listed in recommendedState
+    let recommendedProducts = [];
+    productsMain.map(product => {
+        // Map over recommended products to get corresponding recommendation data
+        recommendationsState.forEach(recommendation => {
+            if (product.id === recommendation.id) {
+                recommendedProducts.push({ product, recommendation });
+            }
         })
+    });
+    console.log(recommendedProducts);
 
-        if (recommendedProducts.length > 0) {
-            recommendationComponent = recommendedProducts.map(pair => <RecommendedProduct recommendedObj={pair.recommendation} productObj={pair.product} key={pair.product.id} currentUser={currentUser} />);
-        }
-
-    }
-    // {productsState.length > 0 && currentUser.oily_skin !== undefined ? productsState.map(p => <RecommendedProduct recommendedObj={r} productObj={p} key={p.id} currentUser={currentUser} />) : null}
-    return(
+    if (recommendedProducts.length > 0) {
+        recommendationComponent = recommendedProducts.map(pair => <RecommendedProduct recommendedObj={pair.recommendation} productObj={pair.product} key={pair.product.id} currentUser={currentUser} />)
+    };
+    
+    return (
         <>
-        {recommendationComponent}
+            {recommendationComponent}
         </>
     )
 

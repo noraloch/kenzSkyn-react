@@ -4,33 +4,34 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin:0;
+  padding: 0;
+  margin: 0;
+  min-width: auto;
   background-color: #adc7b6;
 }
 
 .navbar {
-  overflow: hidden;
   background-color:#ffffff;
-  position: relative; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
-  height: 15%;
-  display: flex;
-  padding: 10px;
-  font-size: 14px;
-  line-height: 1.5;
   margin: 0;
+  padding: 0;
+  position:sticky;
+  top: 0; /* Position the navbar at the top of the page */
+  min-width:auto;
+  height: 15%;
+  display:flex;
+  font-size: 14px;
 }
 .logo {
   float: left;
   padding: 4px;
   margin-left: 20px;
 }
+
 .right-links {
   display: flex;
-  float: right;
   margin-top: 18px;
-  margin-left: 38%;
+  margin-left: 700px;
+  min-width: inherit;
 }
 .link {
   float: left;
@@ -50,18 +51,16 @@ body {
   font-style:oblique;
 }
 main {
-  margin-left: 20%;
-  margin-right: 20%;
-  margin-top: 10%;
+  margin-left: 10%;
+  margin-top: 5%;
   display: flex;
-  text-align: center;
   max-width: 1280px;
 }
 
 
 .quiz {
   display: flex;
-  margin-left: 25%;
+  margin-left: 15%;
   background-color: #7b9982;
   width: 450px;
   min-height: 200px;

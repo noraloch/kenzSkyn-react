@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Profile({ currentUser }) {
     const [photo, setPhoto] = useState({ preview: '', raw: '' });
@@ -34,35 +33,61 @@ function Profile({ currentUser }) {
     // }else{
     //     return "You don't have any saved products!"
     // };
+    let savedProducts = [];
+    if (currentUser.recommendations.length > 0) {
+        currentUser.recommendations.map(r => {
+            if (r.saved) {
+                currentUser.products.map(p => {
+                    if (r.product_id === p.id) {
+                        savedProducts.push(p)
+                    }
+                });
+            }
+        })
+    };
+    // currentUser.recommendations.map(p => {
+    //     if (p.saved) {
+    //         savedProducts = <div>
+    //             <a href={p.link}> {p.name} </a>
+    //             <img src={p.image} alt={p.name} />
+    //         </div>
+    //     }
+    //     else {
+    //         savedProducts = "You don't have any saved products to show!"
+    //     }
+    // });
 
 
     return (
         <>
             <div>
                 <label htmlFor="upload-button">
-                    {photo.preview ? <img src={photo.preview} /> : (
+                    {photo.preview ? <img src={photo.preview} alt="img" style={{ size: "20%" }} /> : (
                         <>
-                            <span>Upload your photo</span>
+                            <span>Import a photo</span>
                         </>)}
                 </label>
                 <input type="file" id="upload-button" style={{ display: 'none' }} onChange={handleChange} />
-                <br />
+                <br /><br />
                 <button onClick={handleUpload}>Upload</button>
-            </div>
+                <div>
+                    {photo ? <img src={image} /> : null}
+                    <h4>First Name</h4><p>{first_name}</p>
+                    <h4>Last Name</h4><p>{last_name}</p>
+                </div>
 
-            <div>
-                {photo ? <img src={image} /> : null}
-                <h3>First Name</h3><p>{first_name}</p>
-                <h3>Last Name</h3><p>{last_name}</p>
             </div>
 
             <div>
                 <h2>My Saved Products</h2>
-                <ul>
-                    {currentUser.recommendations.length > 0 ?
-                        currentUser.recommendations.map(r => <li>{r.id}</li>) :
-                    "You don't have any saved products!"}
-                </ul>
+                <div>
+                    {savedProducts.map(p => (
+                        <div>
+                            <a href={p.link}> {p.name} </a>
+                            <img src={p.image} alt={p.name} />
+                        </div>
+                    ))}
+                </div>
             </div>
         </>
 
@@ -71,4 +96,3 @@ function Profile({ currentUser }) {
 
 
 export default Profile;
-

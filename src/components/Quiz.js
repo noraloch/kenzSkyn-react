@@ -125,7 +125,7 @@ function Quiz({ currentUser, setCurrentUser, setProductsState }) {
                     console.log("check", userProducts);
                     setProductsState(userProducts);
                     addRecommended(userProducts)
-                    history.push(`/recommendation`);
+                    history.push(`/recommendations`);
                 });
         };
     };
@@ -142,8 +142,6 @@ function Quiz({ currentUser, setCurrentUser, setProductsState }) {
                 },
                 body: JSON.stringify(recommendedObj),
             })
-            // .then(r=>r.json())
-            // .then(obj=>console.log(obj))
         });
 
     };

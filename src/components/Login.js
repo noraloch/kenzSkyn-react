@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-function Login({ setCurrentUser }) {
+function Login({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
+  const history = useHistory();
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -23,11 +25,15 @@ function Login({ setCurrentUser }) {
             body: JSON.stringify(formData),
         })
             .then((r) => r.json())
-            .then(userObj => {
-                if (userObj.errors) {
-                    setErrors(userObj.errors)
+            .then(user => {
+                if (user.errors) {
+                    setErrors(user.errors)
+                    history.push("/login")
                 } else {
-                    setCurrentUser(userObj)
+                    setCurrentUser(user);
+                    setRecommendationsState(user.recommendations);
+                    setProductsMain(user.products);
+                    history.push("/available-products")
                 }
             })
 
@@ -54,7 +60,7 @@ function Login({ setCurrentUser }) {
             return <p key={error}>{error}</p>;
           })}
           <button type="submit" value="Login" >Login</button>
-        </form>=
+        </form>
       </div>
     );
 }

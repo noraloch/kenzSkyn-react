@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 function RecommendedProduct({ productObj, recommendedObj }) {
-    let { id, name, category, image, description, link } = productObj;
+    let { name, category, image, description, link } = productObj;
     let rId = recommendedObj.id;
+    const [updatedRec, setUpdatedRec] = useState(recommendedObj);
 
     function handleClick() {
         let savedObj = {
@@ -16,6 +17,8 @@ function RecommendedProduct({ productObj, recommendedObj }) {
             },
             body: JSON.stringify(savedObj),
         })
+        .then(r=>r.json())
+        .then(rec=>setUpdatedRec(rec));
 
     };
 
