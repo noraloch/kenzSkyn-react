@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function RecommendedProduct({ productObj, recommendedObj }) {
     let { name, category, image, description, link } = productObj;
     let rId = recommendedObj.id;
-    const [updatedRec, setUpdatedRec] = useState(recommendedObj);
+    const [savedState, setSavedState] = useState(false);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/recommendations/${rId}`)
+            .then(r => r.json())
+            .then((recObj) => {
+                if (recObj.saved) {
+                    setSavedState(true)
+                }
+            })
+    }, []);
+    console.log(savedState)
 
     function handleClick() {
         let savedObj = {
@@ -17,8 +29,7 @@ function RecommendedProduct({ productObj, recommendedObj }) {
             },
             body: JSON.stringify(savedObj),
         })
-        .then(r=>r.json())
-        .then(rec=>setUpdatedRec(rec));
+            .then(() => { setSavedState(true) })
 
     };
 
@@ -28,8 +39,8 @@ function RecommendedProduct({ productObj, recommendedObj }) {
                 <h3>Your best match {category} is: {name}</h3>
                 <h5>Description: </h5><p>{description}</p>
                 <a href={link} >View full details</a>
-                {recommendedObj.saved ? <h4>Saved</h4> :
-                    <button onClick={handleClick} >Save Recommendation</button>
+                {savedState ? <h4>✓</h4> :
+                    <button onClick={handleClick}>{savedState ? null : "Save Product"}</button>
                 }
                 <img src={image} alt={name} />
             </div>

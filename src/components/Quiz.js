@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 
-function Quiz({ currentUser, setCurrentUser, setProductsState }) {
+function Quiz({ currentUser, handleShowResult, setCurrentUser }) {
 
     const history = useHistory();
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -94,7 +94,6 @@ function Quiz({ currentUser, setCurrentUser, setProductsState }) {
     };
     // console.log(userAnswersObj)
     function patchUserInfo() {
-        console.log(userAnswersObj)
         if (currentUser) {
             fetch(`http://localhost:3000/users/${currentUser.id}`, {
                 method: "PATCH",
@@ -108,43 +107,6 @@ function Quiz({ currentUser, setCurrentUser, setProductsState }) {
         };
     };
 
-
-    function handleShowResult(user) {
-        setCurrentUser(user);
-        console.log(user);
-        if (currentUser) {
-            fetch('http://localhost:3000/products')
-                .then(r => r.json())
-                .then((products) => {
-                    let userProducts = products.filter(p => 
-                        ((user.acne && p.skin_attribute === 'acne') ||
-                        (user.oily_skin && p.skin_attribute === 'oily_skin') ||
-                        (user.dry_skin && p.skin_attribute === 'dry_skin') || 
-                        (user.combination_skin && p.skin_attribute === 'combination_skin')
-                    ));
-                    console.log("check", userProducts);
-                    setProductsState(userProducts);
-                    addRecommended(userProducts)
-                    history.push(`/recommendations`);
-                });
-        };
-    };
-    function addRecommended(products){
-        products.map(p=>{
-            let recommendedObj = {
-                user_id: currentUser.id,
-                product_id: p.id
-            };
-            fetch(`http://localhost:3000/recommendations`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(recommendedObj),
-            })
-        });
-
-    };
 
 
     return (

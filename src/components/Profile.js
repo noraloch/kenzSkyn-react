@@ -1,8 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function Profile({ currentUser }) {
     const [photo, setPhoto] = useState({ preview: '', raw: '' });
     let { first_name, last_name, image } = currentUser;
+    const [savedRecs, setSavedRecs] = useState([]);
+ 
+    useEffect(() => {
+        fetch(`http://localhost:3000/users/${currentUser.id}`)
+            .then((r) => r.json())
+            .then((user) => {
+
+                let recs = user.recommendations.filter(rec => rec.saved)
+                let recommendedProducts = recs.map(r => {
+                    return user.products.find(p => p.id === r.product_id)
+                })
+                        
+                console.log(recommendedProducts);
+                setSavedRecs(recommendedProducts)
+            })
+    }, [])
+
+
+    console.log(savedRecs)
+
 
     const handleChange = (e) => {
         e.persist()
@@ -12,9 +33,9 @@ function Profile({ currentUser }) {
                 raw: e.target.files[0]
             });
         };
-    };
+    }
 
-    console.log(photo);
+
     const handleUpload = async e => {
         e.preventDefault();
         let formData = new FormData();
@@ -26,37 +47,6 @@ function Profile({ currentUser }) {
 
 
     };
-
-    // let rec = [];
-    // if (recommendations.length > 1){
-    //     rec = recommendations.map(r => r.products).map(p => <li>{p.name}</li>);
-    // }else{
-    //     return "You don't have any saved products!"
-    // };
-    let savedProducts = [];
-    if (currentUser.recommendations.length > 0) {
-        currentUser.recommendations.map(r => {
-            if (r.saved) {
-                currentUser.products.map(p => {
-                    if (r.product_id === p.id) {
-                        savedProducts.push(p)
-                    }
-                });
-            }
-        })
-    };
-    // currentUser.recommendations.map(p => {
-    //     if (p.saved) {
-    //         savedProducts = <div>
-    //             <a href={p.link}> {p.name} </a>
-    //             <img src={p.image} alt={p.name} />
-    //         </div>
-    //     }
-    //     else {
-    //         savedProducts = "You don't have any saved products to show!"
-    //     }
-    // });
-
 
     return (
         <>
@@ -79,20 +69,21 @@ function Profile({ currentUser }) {
             </div>
 
             <div>
-                <h2>My Saved Products</h2>
-                <div>
-                    {savedProducts.map(p => (
-                        <div>
-                            <a href={p.link}> {p.name} </a>
-                            <img src={p.image} alt={p.name} />
-                        </div>
-                    ))}
-                </div>
+                {savedRecs.length < 1 ? <h3>You don't have any saved products yet! Take our 20 second skincare quiz, in order to be able to save your favorite recommended products. </h3> :
+                    <div>
+                        <h2>My Saved Products</h2>
+                        {savedRecs.map(p => (
+                            <div>
+                                <a href={p.link}> {p.name} </a>
+                                <img src={p.image} alt={p.name} />
+                            </div>
+                        ))}
+                    </div>}
             </div>
         </>
 
     );
-};
+}
 
 
 export default Profile;

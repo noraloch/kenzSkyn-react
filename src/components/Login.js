@@ -33,7 +33,11 @@ function Login({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
                     setCurrentUser(user);
                     setRecommendationsState(user.recommendations);
                     setProductsMain(user.products);
-                    history.push("/available-products")
+                    if (user.id === 2 ){
+                      history.push("/available-products")
+                    }else{
+                      history.push("/profile")
+                    }
                 }
             })
 
