@@ -11,7 +11,7 @@ function NavBar({ currentUser, logout }) {
             nav = <div>
                 <Link to="/available-products" className="logo"><img style={{ size: "200px" }} className="logo" src="../logo.png" alt="logo" /></Link>
                 <h3 style={{color:"pink"}}>Admin</h3>
-                <div className="right-links">
+                <div className="right-links" style={{marginLeft: "900px"}}>
                     <Link to="/new-product" className="link" >Add Product</Link>
                     <Link to="/available-products" className="link" >All Products</Link>
                     <button onClick={logout}>Logout</button>
@@ -32,7 +32,7 @@ function NavBar({ currentUser, logout }) {
     } else {
         nav = <div>
             <Link to="/home" className="logo"><img style={{ size: "200px" }} className="logo" src="../logo.png" alt="logo" /></Link>
-            <div className="right-links">
+            <div className="right-links" style={{marginLeft: "900px"}}>
                 <Link to="/home" className="link">Home</Link>
                 <Link to="/login" className="link">Login</Link>
                 <Link to="/signup" className="link">Signup</Link>

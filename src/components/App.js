@@ -140,7 +140,7 @@ function App() {
 
     return (
         <>
-            <NavBar currentUser={currentUser} logout={logout} />
+            <NavBar key="navbar" currentUser={currentUser} logout={logout} />
             <main>
                 <Switch>
                     <Route path="/home">
@@ -153,12 +153,12 @@ function App() {
                                     <h2>You have already taken the quiz!</h2>
                                     <Link to="/recommendations">See My Current Recommendations</Link><br />
                                     <button onClick={onReset}>Take the quiz again</button>
-                                </div> : <Quiz key={currentUser.id} setCurrentUser={setCurrentUser} currentUser={currentUser} handleShowResult={handleShowResult} />
+                                </div> : <Quiz key="quiz" setCurrentUser={setCurrentUser} currentUser={currentUser} handleShowResult={handleShowResult} />
                             : <h2 key="login">Please login to take the quiz!</h2>
                         }
                     </Route>
                     <Route path="/recommendations">
-                        {productsMain.length < 1 && recommendationsState.length < 1 ? <h2>Please take the quiz so you can see your recomendations</h2> : <RecommendationsList recommendationsState={recommendationsState} productsMain={productsMain} currentUser={currentUser} />}
+                        {productsMain.length < 1 && recommendationsState.length < 1 ? <h2>Please take the quiz so you can see your recomendations</h2> : <RecommendationsList recommendationsState={recommendationsState} productsMain={productsMain} currentUser={currentUser} key="recommendations" />}
                     </Route>
                     <Route path="/login">
                         <Login currentUser={currentUser} setCurrentUser={setCurrentUser} setRecommendationsState={setRecommendationsState} setProductsMain={setProductsMain} key="login" />

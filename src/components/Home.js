@@ -6,8 +6,8 @@ function Home() {
         <div>
             <div>
                 <h2>What is KenZkYn?</h2>
-                <p>Using the quiz approach, KenZkYn helps user pick product that are best for them.</p>
-                <p>It recommends products based on matching ingredients that are in the product with the ingredients user’s skin requires.</p>
+                <p>Using a quiz approach, KenZkYn helps users find products that are best for them based on their specific skin types, needs and lifestyle.</p>
+                <p>It recommends products by matching their ingredients with the ingredients that the user needs.</p>
                 <button style={{ width:"auto" }}>
                 <Link to="/quiz" style={{ color:"white", textDecoration:"none" }}>Take our 20 second quiz now </Link>
                 </button>

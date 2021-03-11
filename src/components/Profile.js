@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function Profile({ currentUser }) {
-    const [photo, setPhoto] = useState({ preview: '', raw: '' });
+    // const [photo, setPhoto] = useState({ preview: '', raw: '' });
     let { first_name, last_name, image } = currentUser;
     const [savedRecs, setSavedRecs] = useState([]);
  
@@ -25,33 +25,33 @@ function Profile({ currentUser }) {
     console.log(savedRecs)
 
 
-    const handleChange = (e) => {
-        e.persist()
-        if (e.target.files.length) {
-            setPhoto({
-                preview: URL.createObjectURL(e.target.files[0]),
-                raw: e.target.files[0]
-            });
-        };
-    }
+    // const handleChange = (e) => {
+    //     e.persist()
+    //     if (e.target.files.length) {
+    //         setPhoto({
+    //             preview: URL.createObjectURL(e.target.files[0]),
+    //             raw: e.target.files[0]
+    //         });
+    //     };
+    // }
 
 
-    const handleUpload = async e => {
-        e.preventDefault();
-        let formData = new FormData();
-        formData.append("image", photo.raw);
-        await fetch("http://localhost:3000/photos", {
-            method: "POST",
-            body: formData
-        }).catch(error => console.log(error));
+    // const handleUpload = async e => {
+    //     e.preventDefault();
+    //     let formData = new FormData();
+    //     formData.append("image", photo.raw);
+    //     await fetch("http://localhost:3000/photos", {
+    //         method: "POST",
+    //         body: formData
+    //     }).catch(error => console.log(error));
 
 
-    };
+    // };
 
     return (
         <>
             <div>
-                <label htmlFor="upload-button">
+                {/* <label htmlFor="upload-button">
                     {photo.preview ? <img src={photo.preview} alt="img" style={{ size: "20%" }} /> : (
                         <>
                             <span>Import a photo</span>
@@ -59,9 +59,9 @@ function Profile({ currentUser }) {
                 </label>
                 <input type="file" id="upload-button" style={{ display: 'none' }} onChange={handleChange} />
                 <br /><br />
-                <button onClick={handleUpload}>Upload</button>
+                <button onClick={handleUpload}>Upload</button> */}
                 <div>
-                    {photo ? <img src={image} /> : null}
+                    {/* {photo ? <img src={image} /> : null} */}
                     <h4>First Name</h4><p>{first_name}</p>
                     <h4>Last Name</h4><p>{last_name}</p>
                 </div>
