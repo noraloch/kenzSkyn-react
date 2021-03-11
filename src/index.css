@@ -21,6 +21,8 @@ body {
   background-color: #adc7b6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-width: auto;
+
 }
 
 
@@ -47,8 +49,8 @@ body {
 
 .right-links {
   display: flex;
-  margin-top: 10px;
-  margin-left: 700px;
+  margin-top: 16px;
+  margin-left: 800px;
   min-width: inherit;
 }
 .link {
@@ -69,12 +71,12 @@ body {
   font-style:oblique;
 }
 main {
-  margin-left: 8%;
+  margin-left: 15%;
   margin-top: 5%;
+  margin-bottom: 6%;
   display: flex;
   max-width: 1280px;
 }
-
 
 .quiz {
   display: flex;

@@ -12,7 +12,7 @@ import Col from 'react-bootstrap/Col';
 function ProductsListAdmin({ adminProducts }) {
     let productComp = adminProducts.map(p => <ProductItemAdmin key={p.id} productObj={p} />)
     return (
-        <Container>
+        <Container fluid>
             <Row>
                 {productComp}
             </Row>

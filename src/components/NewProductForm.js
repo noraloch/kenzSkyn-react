@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function NewProductForm({ onAddProduct }) {
+function NewProductForm({ onAddProduct, addSkinAttr }) {
     const history = useHistory();
 
     const [name, setName] = useState("");
@@ -73,13 +73,17 @@ function NewProductForm({ onAddProduct }) {
                         .then(() => {
                             // Now we can fetch the final, inserted product
                             let id = parseInt(productRes.id);
-                            console.log(id)
-                            fetch(`http://localhost:3000/products/${id}`)
-                                .then(res => res.json())
-                                .then(finalProductRes => {
-                                    onAddProduct(finalProductRes);
-                                    history.push("/available-products")
-                                })
+                            setTimeout(getFinal, 2000)
+                            function getFinal() {
+                                fetch(`http://localhost:3000/products/${id}`)
+                                    .then(res => res.json())
+                                    .then(finalProductRes => {
+                                        addSkinAttr(finalProductRes);
+                                        onAddProduct(finalProductRes);
+                                        history.push("/available-products")
+                                    })
+                            }
+
                         })
                 })
 
@@ -87,109 +91,110 @@ function NewProductForm({ onAddProduct }) {
 
     }
 
+
     return (
-        <div>
+        <div style={{ marginLeft: "2%", width: '50rem', padding: "10px", border: "none", borderRadius: "15px", padding: "20px", boxShadow: "10px 10px 42px 0px rgba(103, 98, 98, 0.75)" }}>
             <form onSubmit={handleSubmit}>
-                <h3>Add New Product</h3>
-                <label htmlFor="name">Name</label>
+                <h3>Add New Product</h3><br />
+                <label htmlFor="name" style={{ padding: "15px" }}>Name</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="name"
                     placeholder="Product name"
                     value={name}
                     onChange={e => setName(e.target.value)} />
-                <br />
-                <br />
-                <label htmlFor="category">Category</label>
-                <input type="text"
+                <label style={{ padding: "15px" }} htmlFor="category">Category</label>
+                <input
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
+                    type="text"
                     name="category"
                     placeholder="Product category"
                     value={category}
                     onChange={e => setCategory(e.target.value)} />
-                <br />
-                <br />
-                <label htmlFor="brand">Brand</label>
+                <label style={{ padding: "15px" }} htmlFor="brand">Brand</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="brand"
                     placeholder="Product brand"
                     value={brand}
                     onChange={e => setBrand(e.target.value)} />
                 <br />
-                <br />
-                <label htmlFor="ingredient">Product Key Ingredient 1</label>
+                <label style={{ padding: "15px" }} htmlFor="ingredient">Product Key Ingredient 1</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="ingredient1"
                     placeholder="Key ingredient"
                     value={ingredient1}
                     onChange={e => setIngredient1(e.target.value)} />
-                <label htmlFor="description1">Description</label>
+                <label style={{ padding: "15px" }} htmlFor="description1">Description</label>
                 <textarea type=""
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="description1"
                     value={description1}
                     onChange={e => setDescription1(e.target.value)} />
-                <br />
-                <br />
-                <label htmlFor="ingredient">Product Key Ingredient 2</label>
+                <label style={{ padding: "15px" }} htmlFor="ingredient">Product Key Ingredient 2</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="ingredient2"
                     placeholder="Key ingredient"
                     value={ingredient2}
                     onChange={e => setIngredient2(e.target.value)} />
-                <label htmlFor="description2">Description</label>
+                <label style={{ padding: "15px" }} htmlFor="description2">Description</label>
                 <textarea type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="description2"
                     value={description2}
                     onChange={e => setDescription2(e.target.value)} />
-                <br />
-                <br />
-                <label htmlFor="ingredient">Product Key Ingredient 3</label>
+                <label style={{ padding: "15px" }} htmlFor="ingredient">Product Key Ingredient 3</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="ingredient3"
                     placeholder="Key ingredient"
                     value={ingredient3}
                     onChange={e => setIngredient3(e.target.value)} />
-                <label htmlFor="description3">Description</label>
+                <label style={{ padding: "15px" }} htmlFor="description3">Description</label>
                 <textarea type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="description3"
                     value={description3}
                     onChange={e => setDescription3(e.target.value)} />
-                <br />
-                <br />
-                <label htmlFor="ingredient4">Product Key Ingredient 4</label>
+                <label style={{ padding: "15px" }} htmlFor="ingredient4">Product Key Ingredient 4</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="ingredient"
                     placeholder="Key ingredient"
                     value={ingredient4}
                     onChange={e => setIngredient4(e.target.value)} />
-                <label htmlFor="description4">Description</label>
+                <label style={{ padding: "15px" }} htmlFor="description4">Description</label>
                 <textarea type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="description4"
                     value={description4}
                     onChange={e => setDescription4(e.target.value)} />
                 <br />
-                <br />
-                <label htmlFor="image">Image Link</label>
+                <label style={{ padding: "15px" }} htmlFor="image">Image Link</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="image"
                     placeholder="Product image"
                     value={image}
                     onChange={e => setImage(e.target.value)} />
                 <br />
-                <br />
-                <label htmlFor="description">Description</label>
+                <label style={{ padding: "15px" }} htmlFor="description">Description</label>
                 <textarea
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="description"
                     placeholder="description"
                     value={description}
                     onChange={e => setDescription(e.target.value)} />
                 <br />
-                <br />
-                <label htmlFor="link">Product Link</label>
+                <label style={{ padding: "15px" }} htmlFor="link">Product Link</label>
                 <input type="text"
+                    style={{ border: "none", boxShadow: "2px 2px 5px 0px" }}
                     name="link"
                     placeholder="Product link"
                     value={link}
                     onChange={e => setLink(e.target.value)} />
-                <br />
                 <br />
                 <button type="submit">Add Product</button>
             </form>

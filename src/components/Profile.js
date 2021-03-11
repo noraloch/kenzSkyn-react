@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+
 
 function Profile({ currentUser }) {
     // const [photo, setPhoto] = useState({ preview: '', raw: '' });
     let { first_name, last_name, image } = currentUser;
     const [savedRecs, setSavedRecs] = useState([]);
- 
+
     useEffect(() => {
         fetch(`http://localhost:3000/users/${currentUser.id}`)
             .then((r) => r.json())
@@ -15,8 +19,6 @@ function Profile({ currentUser }) {
                 let recommendedProducts = recs.map(r => {
                     return user.products.find(p => p.id === r.product_id)
                 })
-                        
-                console.log(recommendedProducts);
                 setSavedRecs(recommendedProducts)
             })
     }, [])
@@ -49,8 +51,8 @@ function Profile({ currentUser }) {
     // };
 
     return (
-        <>
-            <div>
+        <Container style={{marginRight: "40%"}}>
+            <Row>
                 {/* <label htmlFor="upload-button">
                     {photo.preview ? <img src={photo.preview} alt="img" style={{ size: "20%" }} /> : (
                         <>
@@ -65,22 +67,34 @@ function Profile({ currentUser }) {
                     <h4>First Name</h4><p>{first_name}</p>
                     <h4>Last Name</h4><p>{last_name}</p>
                 </div>
+            </Row>
 
-            </div>
 
-            <div>
-                {savedRecs.length < 1 ? <h3>You don't have any saved products yet! Take our 20 second skincare quiz, in order to be able to save your favorite recommended products. </h3> :
-                    <div>
-                        <h2>My Saved Products</h2>
-                        {savedRecs.map(p => (
-                            <div>
-                                <a href={p.link}> {p.name} </a>
-                                <img src={p.image} alt={p.name} />
-                            </div>
-                        ))}
-                    </div>}
-            </div>
-        </>
+            <Row>
+                <div>
+                    {savedRecs.length < 1 ? <div><h3>My saved results</h3><br /><p>You don't have any saved products yet! </p></div> :
+                        <div>
+                            <h2>My saved results</h2>
+                            <Container>
+                                    <Row>
+                            {savedRecs.map(p => (
+                           
+                                        <Col>
+                                            <Card style={{ textAlign:"center", width: '30vw', height: '45vh', padding: "5px", border: "none", borderRadius: "10px", padding: "10px", boxShadow: "10px 10px 42px 0px", marginTop: "70px" }}>
+                                                <a href={p.link}> {p.name} </a><br></br>
+                                                <img style={{ width: '21vw', height: '32vh', padding:"2px", border:"none", borderRadius: "4px", boxShadow: "5px 5px 20px 5px rgba(50, 40, 40, 0.4)", marginLeft: "14%" }} src={p.image} alt={p.name} />
+                                            </Card>
+                                        </Col>
+                           
+                            ))}
+                                     </Row>
+                                </Container>
+                        </div>}
+
+                </div>
+            </Row>
+
+        </Container>
 
     );
 }

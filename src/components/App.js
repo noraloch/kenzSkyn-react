@@ -8,6 +8,7 @@ import RecommendationsList from "./RecommendationsList";
 import Profile from "./Profile";
 import NewProductForm from "./NewProductForm";
 import ProductsListAdmin from "./ProductsListAdmin";
+import { func } from "prop-types";
 
 
 
@@ -63,7 +64,7 @@ function App() {
     }, []);
 
     function handleAddProduct(newProduct) {
-        const newProductArray = [newProduct, ...adminProducts];
+        const newProductArray = [...adminProducts, newProduct];
         setAdminProducts(newProductArray);
     };
 
@@ -74,7 +75,10 @@ function App() {
     // }
 
     function onReset() {
-        setRecommendationsState([]);
+        setTimeout(set, 800);
+        function set() {
+            setRecommendationsState([])
+        };
         let resetObj = {
             oily_skin: null,
             dry_skin: null,
@@ -90,7 +94,10 @@ function App() {
                     fetch(`http://localhost:3000/recommendations/${rec.id}`, {
                         method: 'DELETE',
                     }).then(() => {
-                        setProductsMain([])
+                        setTimeout(st, 500)
+                        function st() {
+                            setProductsMain([])
+                        }
                     })
 
                 })
@@ -99,7 +106,10 @@ function App() {
     }
 
     function handleShowResult(user) {
-        setCurrentUser(user);
+        setTimeout(getReady, 3000);
+        function getReady() {
+            setCurrentUser(user);
+        }
         if (currentUser) {
             fetch('http://localhost:3000/products')
                 .then(r => r.json())
@@ -115,7 +125,12 @@ function App() {
         };
     }
     function addRecommended(products) {
-        products.map(p => {
+        // setTimeout(getReady, 2000);
+        // function getReady() {
+            setProductsMain(products)
+        // }
+        let recs = [];
+        products.forEach(p => {
             let recommendedObj = {
                 user_id: currentUser.id,
                 product_id: p.id
@@ -126,16 +141,82 @@ function App() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(recommendedObj),
-            }).then(res => res.json()).then(recObj => addRecToState(recObj))
-            setProductsMain(products)
+            }).then(res => res.json()).then(recObj => { recs.push(recObj) })
+            // setTimeout(setSt, 500);
+            // function setSt() {
+                setRecommendationsState(recs)
+            // };
+            // setTimeout(push, 4000)
+            // function push() {
             history.push(`/recommendations`)
+            // }
         });
     }
 
-    function addRecToState(recObj) {
-        let updatedArr = [...recommendationsState, recObj]
-        setRecommendationsState(updatedArr)
+    // function addRecToState(recObj) {
+    //     let updatedArr = [...recommendationsState, recObj]
+    //     setRecommendationsState(updatedArr)
+    // }
+
+    function addSkinAttr(product) {
+        let productIngArr = product.ingredients;
+        // let allIngArr= [];
+        // fetch(`http://localhost:3000/ingredients`)
+        // .then(r=>r.json())
+        // .then((ings)=>{
+        //     allIngArr = ings;
+        //     prod
+        // })
+
+        let drySkinIng = {
+            skinAttr: "dry_skin", ingredients: ["aha", "omega", "lactic acid", "almond oil", "meadowfoam seed oil", "oat", "ceramide", "hyaluronic acid",
+                "jojoba oil", "avocado oil", "glycerin", "vitamin E"]
+        };
+        let combinationSkinIng = { skinAttr: "combination_skin", ingredients: ["copper sulfate", "calendula", "glycolic acid"] };
+        let oilySkinIng = { skinAttr: "oily_skin", ingredients: ["retinol", "niacinamide", "clay", "grapeseed oil"] };
+        let acneIng = { skinAttr: "acne", ingredients: ["zinc gluconate", "comedoclastin", "zinc sulfate", "salicylic acid"] };
+
+        let allAttributesTable = [drySkinIng, combinationSkinIng, oilySkinIng, acneIng]
+
+        let skinAttrPoints = {};
+        productIngArr.forEach((ingredient) => {
+            // console.log('Look for ingriedent:', ingredient);
+            allAttributesTable.forEach(skinAttrObj => {
+                let skinAttrName = skinAttrObj.skinAttr;
+                let skinAttrIngredients = skinAttrObj.ingredients;
+                // console.log('Checking Skin attribute Object:', skinAttrName);
+                if (skinAttrIngredients.includes(ingredient.name.toLowerCase())) {
+                    console.log("Found Match for:", ingredient);
+                    // If this skinAttrName isn't in the points object yet, add it and set to 1
+                    if (!skinAttrPoints.hasOwnProperty(skinAttrName)) {
+                        skinAttrPoints[skinAttrName] = 1;
+                    } else {
+                        skinAttrPoints[skinAttrName] += 1;
+                    }
+                }
+            })
+        })
+        if (Object.entries(skinAttrPoints).length === 0) {
+            console.log("no match");
+        }
+
+        // Determine which skin attribute best suits these ingredients
+        let bestCount = 0;
+        let bestSuitedSkinAttr = "";
+        for (let [key, value] of Object.entries(skinAttrPoints)) {
+            if (value > bestCount) {
+                bestCount = value;
+                bestSuitedSkinAttr = key;
+            }
+        }
+        console.log(bestSuitedSkinAttr);
+        let attrToAdd = { skin_attribute: bestSuitedSkinAttr };
+
+        fetch(`http://localhost:3000/products/${product.id}`, createRequestionOptions('PATCH', attrToAdd))
+            .then(r => r.json())
+            .then(product => { console.log(product) })
     }
+
 
 
     return (
@@ -167,7 +248,7 @@ function App() {
                         {currentUser ? <Profile key={currentUser.id} currentUser={currentUser} recommendationsState={recommendationsState} /> : null}
                     </Route>
                     <Route path="/new-product">
-                        <NewProductForm key="new" onAddProduct={handleAddProduct} />
+                        <NewProductForm addSkinAttr={addSkinAttr} key="new" onAddProduct={handleAddProduct} />
                     </Route>
                     <Route path="/available-products">
                         <ProductsListAdmin key="products" adminProducts={adminProducts} />

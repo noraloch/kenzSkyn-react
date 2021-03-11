@@ -43,23 +43,23 @@ function Login({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
 
     }
     return (
-        <div>
+        <div style={{marginLeft: "20%"}}>
         <form onSubmit={handleSubmit} autoComplete="off">
-          <h3>Login</h3>
-          <label>Username</label>
+          <h3>Login</h3><br />
+          <label>Username</label><br />
           <input
             type="text"
             name="username"
             value={formData.username}
             onChange={handleChange}
-          />
-          <label>Password</label>
+          /><br />
+          <label>Password</label><br />
           <input
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
-          />
+          /><br /><br />
           {errors.map((error) => {
             return <p key={error}>{error}</p>;
           })}
