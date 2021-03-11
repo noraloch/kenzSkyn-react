@@ -10,12 +10,14 @@ import Col from 'react-bootstrap/Col';
 
 
 function ProductsListAdmin({ adminProducts }) {
-    let productComp = adminProducts.map(p => <ProductItemAdmin key={p.id} productObj={p} />)
+    // let productComp = adminProducts.map(p => <ProductItemAdmin key={p.id} productObj={p} />)
     return (
         <Container fluid>
-            <Row>
-                {productComp}
-            </Row>
+            {adminProducts.length === 0 ? <img style={{ marginLeft: "18%", marginTop: "5%" }} src="https://www.parcon-india.com/m/images/giphy.gif" alt="loading" /> :
+                <Row>
+                    {adminProducts.map(p => <ProductItemAdmin key={p.id} productObj={p} />)}
+                </Row>
+            }
         </Container>
     )
 }

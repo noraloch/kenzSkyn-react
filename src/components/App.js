@@ -127,7 +127,7 @@ function App() {
     function addRecommended(products) {
         // setTimeout(getReady, 2000);
         // function getReady() {
-            setProductsMain(products)
+        setProductsMain(products)
         // }
         let recs = [];
         products.forEach(p => {
@@ -144,7 +144,7 @@ function App() {
             }).then(res => res.json()).then(recObj => { recs.push(recObj) })
             // setTimeout(setSt, 500);
             // function setSt() {
-                setRecommendationsState(recs)
+            setRecommendationsState(recs)
             // };
             // setTimeout(push, 4000)
             // function push() {
@@ -215,6 +215,13 @@ function App() {
         fetch(`http://localhost:3000/products/${product.id}`, createRequestionOptions('PATCH', attrToAdd))
             .then(r => r.json())
             .then(product => { console.log(product) })
+
+        fetch(`http://localhost:3000/products`)
+        .then(r=>r.json())
+        .then((prods)=> {setTimeout(wait(prods), 2000)})
+        function wait(prods) {
+            setAdminProducts(prods)
+        }
     }
 
 

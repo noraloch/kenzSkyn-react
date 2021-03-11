@@ -80,7 +80,10 @@ function NewProductForm({ onAddProduct, addSkinAttr }) {
                                     .then(finalProductRes => {
                                         addSkinAttr(finalProductRes);
                                         onAddProduct(finalProductRes);
-                                        history.push("/available-products")
+                                        setTimeout(wait, 3000)
+                                        function wait() {
+                                            history.push("/available-products")
+                                        }
                                     })
                             }
 
