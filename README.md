@@ -1,70 +1,57 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## What is the purpose for this project?
 
-In the project directory, you can run:
+This is a sample that shows the basic structure a README should have. It should be updated as standards change and should aim to be as succinct as possible.
 
-### `yarn start`
+## Usage examples
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+If usage examples are relevant for your project, they should be included very early on in the README. The README should be optimized to bootstrap people as fast as possible towards the common use case.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Prerequisites
 
-### `yarn test`
+If you are assuming anything about the environment, list it here, e.g.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- JDK 8u152
 
-### `yarn build`
+## Installing Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This should be one command that can be used to install dependencies specific to this project, e.g.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`npm install`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Running
 
-### `yarn eject`
+This should be one command that can be used to run the project (if it is runnable), e.g.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`./bin/run.sh`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Running Tests
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This should be one command that can be used to run the automated tests, e.g.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`mvn test`
 
-## Learn More
+Tests are run both on CI and in local development. If there are any differences here, please call them out.
+READMEs should focus on developer experience so optimize for describing the recommended developer flow vs ideal case scenarios 
+in isolated systems (i.e. CI)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If static analysis is run outside of tests, there should be a section on how to run that as well.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Building
 
-### Code Splitting
+This should be one command that can be used to build the project (if it is buildable)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+`npm run build`
 
-### Analyzing the Bundle Size
+## Development Mode
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+If the project has a "development mode" (i.e. a non-production way to run that optimizes for developer experience), list the command here, e.g.
 
-### Making a Progressive Web App
+`./bin/watch.sh`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Deploying
 
-### Advanced Configuration
+What are the steps necessary to deploy the built artifact (if there is a built artifact). Deployments needs to occur reproducibly via a central CI system, the instructions here should represent that.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*Make sure to describe where the artifacts are located and how to verify they are available*

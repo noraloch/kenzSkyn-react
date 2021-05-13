@@ -6,6 +6,7 @@ import Quiz from "./Quiz";
 import Login from "./Login";
 import RecommendationsList from "./RecommendationsList";
 import Profile from "./Profile";
+import Signup from "./Signup";
 import NewProductForm from "./NewProductForm";
 import ProductsListAdmin from "./ProductsListAdmin";
 import { func } from "prop-types";
@@ -25,7 +26,7 @@ function App() {
         history.push('/login');
     };
 
-    function createRequestionOptions(methodType, data) {
+    function createRequestOptions(methodType, data) {
         return {
             method: methodType,
             headers: {
@@ -37,16 +38,16 @@ function App() {
 
 
     // autologin
-    useEffect(() => {
-        // TODO: check if there'a token for the logged in user
-        fetch("http://localhost:3000/users/1")
-            .then((r) => r.json())
-            .then((user) => {
-                setCurrentUser(user);
-                setRecommendationsState(user.recommendations)
-                setProductsMain(user.products)
-            });
-    }, []);
+    // useEffect(() => {
+    //     // TODO: check if there'a token for the logged in user
+    //     fetch("http://localhost:3000/users/1")
+    //         .then((r) => r.json())
+    //         .then((user) => {
+    //             setCurrentUser(user);
+    //             setRecommendationsState(user.recommendations)
+    //             setProductsMain(user.products)
+    //         });
+    // }, []);
 
     // useEffect(() => {
     //     fetch(`http://localhost:3000/users/${currentUser.id}`)
@@ -86,7 +87,7 @@ function App() {
             acne: null,
             sport_practice: null
         }
-        fetch(`http://localhost:3000/users/${currentUser.id}`, createRequestionOptions('PATCH', resetObj))
+        fetch(`http://localhost:3000/users/${currentUser.id}`, createRequestOptions('PATCH', resetObj))
             .then(r => r.json())
             .then(user => {
                 setCurrentUser(user)
@@ -212,7 +213,7 @@ function App() {
         console.log(bestSuitedSkinAttr);
         let attrToAdd = { skin_attribute: bestSuitedSkinAttr };
 
-        fetch(`http://localhost:3000/products/${product.id}`, createRequestionOptions('PATCH', attrToAdd))
+        fetch(`http://localhost:3000/products/${product.id}`, createRequestOptions('PATCH', attrToAdd))
             .then(r => r.json())
             .then(product => { console.log(product) })
 
@@ -250,6 +251,9 @@ function App() {
                     </Route>
                     <Route path="/login">
                         <Login currentUser={currentUser} setCurrentUser={setCurrentUser} setRecommendationsState={setRecommendationsState} setProductsMain={setProductsMain} key="login" />
+                    </Route>
+                    <Route path="/signup">
+                        <Signup currentUser={currentUser} setCurrentUser={setCurrentUser} setRecommendationsState={setRecommendationsState} setProductsMain={setProductsMain} key="signup" />
                     </Route>
                     <Route path="/profile">
                         {currentUser ? <Profile key={currentUser.id} currentUser={currentUser} recommendationsState={recommendationsState} /> : null}
