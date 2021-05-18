@@ -25,19 +25,21 @@ function Login({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
             body: JSON.stringify(formData),
         })
             .then((r) => r.json())
-            .then(user => {
-                if (user.errors) {
-                    setErrors(user.errors)
-                    history.push("/login")
+            .then(data => {
+                if (data.errors) {
+                  setErrors(data.errors)
+                  history.push("/login")
                 } else {
-                    setCurrentUser(user);
-                    setRecommendationsState(user.recommendations);
-                    setProductsMain(user.products);
-                    if (user.id === 2 ){
-                      history.push("/available-products")
-                    }else{
-                      history.push("/profile")
-                    }
+                  const {user, token} = data;
+                  localStorage.setItem("token", token);
+                  setCurrentUser(user);
+                  setRecommendationsState(user.recommendations);
+                  setProductsMain(user.products);
+                  if (user.id === 2 ){
+                    history.push("/available-products")
+                  }else{
+                    history.push("/profile")
+                  }
                 }
             })
 

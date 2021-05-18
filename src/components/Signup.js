@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 
 
-function Signup({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
+function Signup({ setCurrentUser  }) {
     const history = useHistory();
 
     const [formData, setFormData] = useState({
@@ -15,16 +15,15 @@ function Signup({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
 
 
     function handleChange(e) {
-        console.log(e.target.name);
-        console.log(e.target.value);
-
-        console.log(e.target.input);
+        // console.log(e.target.name);
+        // console.log(e.target.value);
+        // console.log(e.target.input);
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
-
+// POST to signup
     function handleSubmit(e) {
         e.preventDefault();
-
+        // console.log(formData)
         fetch("http://localhost:3000/signup", {
             method: "POST",
             headers: {
@@ -33,22 +32,17 @@ function Signup({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
             body: JSON.stringify(formData),
         })
             .then((r) => r.json())
-            .then(user => {
-                if (user.errors) {
-                    setErrors(user.errors)
-                    history.push("/signup")
+            .then(data => {
+                if (data.errors) {
+                  setErrors(data.errors)
+                  history.push("/signup")
                 } else {
-                    setCurrentUser(user);
-                    setRecommendationsState(user.recommendations);
-                    setProductsMain(user.products);
-                    if (user.id === 2 ){
-                      history.push("/available-products")
-                    }else{
-                      history.push("/profile")
-                    }
+                  const {user, token} = data;
+                  localStorage.setItem("token", token);
+                  setCurrentUser(user);
+                  history.push("/home");
                 }
             })
-
     }
     return (
         <div style={{marginLeft: "20%"}}>
