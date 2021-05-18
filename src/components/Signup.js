@@ -6,8 +6,8 @@ function Signup({ setCurrentUser  }) {
     const history = useHistory();
 
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
+        first_name: "",
+        last_name: "",
         username: "",
         password: "",
     });
@@ -15,9 +15,7 @@ function Signup({ setCurrentUser  }) {
 
 
     function handleChange(e) {
-        // console.log(e.target.name);
         // console.log(e.target.value);
-        // console.log(e.target.input);
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 // POST to signup
@@ -51,15 +49,15 @@ function Signup({ setCurrentUser  }) {
           <label>First Name</label><br />
           <input
             type="text"
-            name="firstName"
-            value={formData.firstName}
+            name="first_name"
+            value={formData.first_name}
             onChange={handleChange}
           /><br />
           <label>Last Name</label><br />
           <input
             type="text"
-            name="lastName"
-            value={formData.lastName}
+            name="last_name"
+            value={formData.last_name}
             onChange={handleChange}
           /><br />
           <label>Username</label><br />

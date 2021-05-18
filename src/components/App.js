@@ -21,6 +21,45 @@ function App() {
 
     const history = useHistory();
 
+    //admin products
+    useEffect(() => {
+        if (currentUser && currentUser.id === 2) {
+            fetch("http://localhost:3000/products")
+                .then((r) => r.json())
+                .then((productsArr) => setAdminProducts(productsArr))
+        }
+    }, []);
+    //admin add products
+    function handleAddProduct(newProduct) {
+        const newProductArray = [...adminProducts, newProduct];
+        setAdminProducts(newProductArray);
+    };
+
+
+    // autologin
+    useEffect(() => {
+        // TODO: check if there'a token for the logged in user
+        const token = localStorage.getItem("token");
+        console.log('token: ', token)
+        if (token) {
+            fetch("http://localhost:3000/ba", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }).then((r) => r.json())
+            .then((user) => {
+                console.log('user obj before set', user);
+                setCurrentUser(user);
+                setRecommendationsState(user.recommendations);
+                setProductsMain(user.products);
+            })
+        }
+    }, []);
+    console.log('after set user: ', currentUser);
+    // console.log('after set user rec: ', currentUser.recommendations);
+    // console.log('after set user prod: ', currentUser.products);
+
+
     function logout() {
         setCurrentUser(null);
         history.push('/login');
@@ -36,44 +75,6 @@ function App() {
         }
     };
 
-
-    // autologin
-    // useEffect(() => {
-    //     // TODO: check if there'a token for the logged in user
-    //     fetch("http://localhost:3000/users/1")
-    //         .then((r) => r.json())
-    //         .then((user) => {
-    //             setCurrentUser(user);
-    //             setRecommendationsState(user.recommendations)
-    //             setProductsMain(user.products)
-    //         });
-    // }, []);
-
-    // useEffect(() => {
-    //     fetch(`http://localhost:3000/users/${currentUser.id}`)
-    //         .then((r) => r.json())
-    //         .then((user) => {
-    //             setCurrentUser(user)
-    //             setRecommendationsState(user.recommendations)
-    //             setProductsMain(user.products)})
-    // }, []);
-
-    useEffect(() => {
-        fetch("http://localhost:3000/products")
-            .then((r) => r.json())
-            .then((productsArr) => setAdminProducts(productsArr))
-    }, []);
-
-    function handleAddProduct(newProduct) {
-        const newProductArray = [...adminProducts, newProduct];
-        setAdminProducts(newProductArray);
-    };
-
-
-    // function onSaveRec(recommendation) {
-    //     let updatedRecProd = [...recommendationsState, recommendation]
-    //     setRecommendationsState(updatedRecProd)
-    // }
 
     function onReset() {
         setTimeout(set, 800);
@@ -154,10 +155,6 @@ function App() {
         });
     }
 
-    // function addRecToState(recObj) {
-    //     let updatedArr = [...recommendationsState, recObj]
-    //     setRecommendationsState(updatedArr)
-    // }
 
     function addSkinAttr(product) {
         let productIngArr = product.ingredients;
@@ -187,7 +184,6 @@ function App() {
                 let skinAttrIngredients = skinAttrObj.ingredients;
                 // console.log('Checking Skin attribute Object:', skinAttrName);
                 if (skinAttrIngredients.includes(ingredient.name.toLowerCase())) {
-                    console.log("Found Match for:", ingredient);
                     // If this skinAttrName isn't in the points object yet, add it and set to 1
                     if (!skinAttrPoints.hasOwnProperty(skinAttrName)) {
                         skinAttrPoints[skinAttrName] = 1;
@@ -210,7 +206,6 @@ function App() {
                 bestSuitedSkinAttr = key;
             }
         }
-        console.log(bestSuitedSkinAttr);
         let attrToAdd = { skin_attribute: bestSuitedSkinAttr };
 
         fetch(`http://localhost:3000/products/${product.id}`, createRequestOptions('PATCH', attrToAdd))
@@ -218,8 +213,8 @@ function App() {
             .then(product => { console.log(product) })
 
         fetch(`http://localhost:3000/products`)
-        .then(r=>r.json())
-        .then((prods)=> {setTimeout(wait(prods), 2000)})
+            .then(r => r.json())
+            .then((prods) => { setTimeout(wait(prods), 2000) })
         function wait(prods) {
             setAdminProducts(prods)
         }

@@ -11,19 +11,33 @@ function Profile({ currentUser }) {
     const [savedRecs, setSavedRecs] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/users/${currentUser.id}`)
-            .then((r) => r.json())
-            .then((user) => {
-                let recs = user.recommendations.filter(rec => rec.saved)
-                let recommendedProducts = recs.map(r => {
-                    return user.products.find(p => p.id === r.product_id)
+        if (currentUser){
+            fetch(`http://localhost:3000/users/${currentUser.id}`)
+                .then((r) => r.json())
+                .then((user) => {
+                    let recs = user.recommendations.filter(rec => rec.saved);
+                    if (recs) {
+                        let recommendedProducts = recs.map(r => {
+                            return user.products.find(p => p.id === r.product_id)
+                        })
+                        setSavedRecs(recommendedProducts)
+                    }
+                    
                 })
-                setSavedRecs(recommendedProducts)
-            })
+            }
     }, [])
+    // useEffect(() => {
+    //     // console.log(currentUser.recommendations)
+    //     let savedRecs = currentUser.recommendations.filter(rec => rec.saved);
+    //     let recommendedProducts = savedRecs.map(r => {
+    //                                 return currentUser.products.find(p => p.id === r.product_id);
+    //                             });
+    //                             // console.log(currentUser.recommendations)
+    //     setSavedRecs(recommendedProducts)
+
+    // }, [])
 
 
-    console.log(savedRecs)
 
 
     // const handleChange = (e) => {
