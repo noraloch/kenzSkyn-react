@@ -61,6 +61,9 @@ function App() {
 
 
     function logout() {
+        // remove the token
+        localStorage.removeItem('token');
+        // clear the current user
         setCurrentUser(null);
         history.push('/login');
     };
@@ -74,7 +77,6 @@ function App() {
             body: JSON.stringify(data),
         }
     };
-
 
     function onReset() {
         setTimeout(set, 800);
@@ -238,11 +240,11 @@ function App() {
                                     <Link to="/recommendations">See My Current Recommendations</Link><br />
                                     <button onClick={onReset}>Take the quiz again</button>
                                 </div> : <Quiz key="quiz" setCurrentUser={setCurrentUser} currentUser={currentUser} handleShowResult={handleShowResult} />
-                            : <h2 key="login">Please login to take the quiz!</h2>
+                            : <h1 key="login">Please login to take the quiz!</h1>
                         }
                     </Route>
                     <Route path="/recommendations">
-                        {productsMain.length < 1 && recommendationsState.length < 1 ? <h2>Please take the quiz so you can see your recomendations</h2> : <RecommendationsList recommendationsState={recommendationsState} productsMain={productsMain} currentUser={currentUser} key="recommendations" />}
+                        {productsMain.length < 1 && recommendationsState.length < 1 ? <h2>Please take the quiz to see your recomendations</h2> : <RecommendationsList recommendationsState={recommendationsState} productsMain={productsMain} currentUser={currentUser} key="recommendations" />}
                     </Route>
                     <Route path="/login">
                         <Login currentUser={currentUser} setCurrentUser={setCurrentUser} setRecommendationsState={setRecommendationsState} setProductsMain={setProductsMain} key="login" />
@@ -251,7 +253,7 @@ function App() {
                         <Signup currentUser={currentUser} setCurrentUser={setCurrentUser} setRecommendationsState={setRecommendationsState} setProductsMain={setProductsMain} key="signup" />
                     </Route>
                     <Route path="/profile">
-                        {currentUser ? <Profile key={currentUser.id} currentUser={currentUser} recommendationsState={recommendationsState} /> : null}
+                        {currentUser ? <Profile key={currentUser.id} currentUser={currentUser} recommendationsState={recommendationsState} /> : <h1 key="login">Please login to to see this page!</h1>}
                     </Route>
                     <Route path="/new-product">
                         <NewProductForm addSkinAttr={addSkinAttr} key="new" onAddProduct={handleAddProduct} />

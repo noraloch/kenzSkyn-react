@@ -15,6 +15,7 @@ function Profile({ currentUser }) {
             fetch(`http://localhost:3000/users/${currentUser.id}`)
                 .then((r) => r.json())
                 .then((user) => {
+                    console.log(user)
                     let recs = user.recommendations.filter(rec => rec.saved);
                     if (recs) {
                         let recommendedProducts = recs.map(r => {
