@@ -57,14 +57,18 @@ function NavBar({ currentUser, logout }) {
                 </>
         }
     } else {
-        nav = <div>
-            <Link to="/home" className="logo"><img style={{ size: "200px" }} className="logo" src="../logo.png" alt="logo" /></Link>
-            <div className="right-links" >
-                <Link to="/home" className="link">Home</Link>
-                <Link to="/login" className="link">Login</Link>
-                <Link to="/signup" className="link">Signup</Link>
+        nav = <>
+            <a class="navbar-brand"><Link to="/home"><img style={{ size: "180px" }} className="logo" src="../logo.png" alt="logo" /></Link></a>
+            <div style={{ marginLeft: "48%" }}>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link"><Link to="/home" className="link">Home</Link></a>
+                        <a class="nav-item nav-link"><Link to="/login" className="link">Login</Link></a>
+                        <a class="nav-item nav-link"><Link to="/signup" className="link">Signup</Link></a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     };
 
     return (
