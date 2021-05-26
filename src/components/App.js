@@ -88,10 +88,12 @@ function App() {
             acne: null,
             sport_practice: null
         }
-        fetch(`http://localhost:3000/users/${currentUser.id}`, createRequestOptions('PATCH', resetObj))
+        fetch(`http://localhost:3000/ba`, createRequestOptions('PATCH', resetObj))
             .then(r => r.json())
             .then(user => {
+                console.log('ba user update:', user)
                 setCurrentUser(user)
+                console.log('still inside reset:', currentUser)
                 currentUser.recommendations.forEach(rec => {
                     fetch(`http://localhost:3000/recommendations/${rec.id}`, {
                         method: 'DELETE',
@@ -232,7 +234,7 @@ function App() {
     return (
         <>
             <NavBar key="navbar" currentUser={currentUser} logout={logout} />
-            <div style={{ margin: "5%"}}>
+            <div style={{ margin: "5%", display: "flex", position: "static" }}>
                 <Switch>
                     <Route path="/home">
                         <Home key="home" />

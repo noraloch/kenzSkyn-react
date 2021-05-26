@@ -36,7 +36,7 @@ function RecommendedProduct({ productObj, recommendedObj }) {
     };
 
     return (
-        <Card style={{ width: '60rem', padding:"10px", border:"none", borderRadius: "15px", padding: "20px", boxShadow: "10px 10px 42px 0px rgba(103, 98, 98, 0.75)", margin: "17px" }}>
+        <Card style={{ width: '55rem', padding:"10px", border:"none", borderRadius: "15px", padding: "20px", boxShadow: "10px 10px 42px 0px rgba(103, 98, 98, 0.75)", marginBottom: "10px" }}>
                 <h3>{name}</h3>
                 <h5>Description: </h5><p>{description}</p>
                 <a href={link} >View full details</a><br></br>

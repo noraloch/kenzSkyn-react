@@ -17,7 +17,7 @@ function recommendationsList({ productsMain, currentUser, recommendationsState, 
             }
         })
     });
-    console.log(recommendedProducts);
+    // console.log(recommendedProducts);
     recommendationComponent = recommendedProducts.map(pair => <RecommendedProduct recommendedObj={pair.recommendation} productObj={pair.product} key={pair.product.id} currentUser={currentUser} onSaveRec={onSaveRec} />)
 
     return (
