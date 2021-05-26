@@ -43,7 +43,7 @@ function Signup({ setCurrentUser  }) {
             })
     }
     return (
-        <div style={{marginLeft: "20%"}}>
+        <div>
         <form onSubmit={handleSubmit} autoComplete="off">
           <h3>Signup</h3><br />
           <label>First Name</label><br />

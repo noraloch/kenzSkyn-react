@@ -96,7 +96,7 @@ function NewProductForm({ onAddProduct, addSkinAttr }) {
 
 
     return (
-        <div style={{ marginLeft: "2%", width: '50rem', padding: "10px", border: "none", borderRadius: "15px", padding: "20px", boxShadow: "10px 10px 42px 0px rgba(103, 98, 98, 0.75)" }}>
+        <div style={{width: '50rem', padding: "5px", border: "none", borderRadius: "10px", padding: "20px", boxShadow: "10px 10px 42px 0px rgba(103, 98, 98, 0.75)", backgroundColor: "rgb(192, 202, 196)" }}>
             <form onSubmit={handleSubmit}>
                 <h3>Add New Product</h3><br />
                 <label htmlFor="name" style={{ padding: "15px" }}>Name</label>

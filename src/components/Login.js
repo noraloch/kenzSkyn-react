@@ -48,8 +48,8 @@ function Login({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
 
     }
     return (
-        <div style={{marginLeft: "20%"}}>
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <div>
+        <form onSubmit={handleSubmit} autoComplete="on">
           <h3>Login</h3><br />
           <label>Username</label><br />
           <input

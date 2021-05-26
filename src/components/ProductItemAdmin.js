@@ -2,9 +2,6 @@ import React from "react";
 import Card from 'react-bootstrap/Card';
 
 
-
-
-
 function ProductItemAdmin({ productObj }) {
     let { name, category, brand, image, description, link, skin_attribute } = productObj;
 

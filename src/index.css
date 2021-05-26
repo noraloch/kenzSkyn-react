@@ -1,66 +1,3 @@
-/* body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 0;
-  margin: 0;
-  min-width: auto;
-  background-color: #adc7b6;
-} */
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  background-color: #adc7b6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-width: auto;
-
-}
-
-
-.navbar {
-  background-color: white;
-  margin: 0;
-  position: relative;
-  padding: .5rem 1rem;
-  top: 0; /* Position the navbar at the top of the page */
-  height: 15%;
-  display:flex;
-  font-size: 14px;
-  z-index: 1;
-  min-width:auto;
-
-}
-
-
-.logo {
-  float: left;
-  padding: 4px;
-  margin-left: 0px;
-}
-
-.right-links {
-  display: flex;
-  margin-top: 16px;
-  margin-left: 800px;
-  min-width: inherit;
-}
-.link {
-  float: left;
-  display: block;
-  color: #000000;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
 .welcome {
   float: left;
   display: block;
@@ -69,13 +6,6 @@ body {
   padding: 12px 14px;
   font-size: 18px;
   font-style:oblique;
-}
-main {
-  margin-left: 15%;
-  margin-top: 5%;
-  margin-bottom: 6%;
-  display: flex;
-  max-width: 1280px;
 }
 
 .quiz {

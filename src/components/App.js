@@ -9,8 +9,6 @@ import Profile from "./Profile";
 import Signup from "./Signup";
 import NewProductForm from "./NewProductForm";
 import ProductsListAdmin from "./ProductsListAdmin";
-import { func } from "prop-types";
-
 
 
 function App() {
@@ -20,21 +18,6 @@ function App() {
     const [adminProducts, setAdminProducts] = useState([]);
 
     const history = useHistory();
-
-    //admin products
-    useEffect(() => {
-        if (currentUser && currentUser.id === 2) {
-            fetch("http://localhost:3000/products")
-                .then((r) => r.json())
-                .then((productsArr) => setAdminProducts(productsArr))
-        }
-    }, []);
-    //admin add products
-    function handleAddProduct(newProduct) {
-        const newProductArray = [...adminProducts, newProduct];
-        setAdminProducts(newProductArray);
-    };
-
 
     // autologin
     useEffect(() => {
@@ -47,17 +30,32 @@ function App() {
                     Authorization: `Bearer ${token}`,
                 }
             }).then((r) => r.json())
-            .then((user) => {
-                console.log('user obj before set', user);
-                setCurrentUser(user);
-                setRecommendationsState(user.recommendations);
-                setProductsMain(user.products);
-            })
+                .then((user) => {
+                    console.log('user obj before set', user);
+                    setCurrentUser(user);
+                    setRecommendationsState(user.recommendations);
+                    setProductsMain(user.products);
+                })
         }
     }, []);
-    console.log('after set user: ', currentUser);
+    // console.log('after set user: ', currentUser);
     // console.log('after set user rec: ', currentUser.recommendations);
     // console.log('after set user prod: ', currentUser.products);
+
+
+    //admin products
+    // useEffect(() => {
+    //     if (currentUser && currentUser.id === 2) {
+    //         fetch("http://localhost:3000/products")
+    //             .then((r) => r.json())
+    //             .then((productsArr) => setAdminProducts(productsArr))
+    //     }
+    // }, []);
+    //admin add products
+    function handleAddProduct(newProduct) {
+        const newProductArray = [...adminProducts, newProduct];
+        setAdminProducts(newProductArray);
+    };
 
 
     function logout() {
@@ -223,11 +221,18 @@ function App() {
     }
 
 
+// main {
+//   margin-left: 15%;
+//   margin-top: 5%;
+//   margin-bottom: 6%;
+//   display: flex;
+//   max-width: 1280px backgroundColor: "#adc7b6"  maxWidth: "auto";
+// }
 
     return (
         <>
             <NavBar key="navbar" currentUser={currentUser} logout={logout} />
-            <main>
+            <div style={{ margin: "5%"}}>
                 <Switch>
                     <Route path="/home">
                         <Home key="home" />
@@ -259,10 +264,10 @@ function App() {
                         <NewProductForm addSkinAttr={addSkinAttr} key="new" onAddProduct={handleAddProduct} />
                     </Route>
                     <Route path="/available-products">
-                        <ProductsListAdmin key="products" adminProducts={adminProducts} />
+                        <ProductsListAdmin key="products" adminProducts={adminProducts} setAdminProducts={setAdminProducts} />
                     </Route>
                 </Switch>
-            </main>
+            </div>
         </>
 
     )
