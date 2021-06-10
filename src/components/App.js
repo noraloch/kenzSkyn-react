@@ -88,10 +88,19 @@ function App() {
             acne: null,
             sport_practice: null
         }
-        fetch(`http://localhost:3000/ba`, createRequestOptions('PATCH', resetObj))
+        const token = localStorage.getItem("token");
+        console.log('token: ', token)
+            fetch("http://localhost:3000/ba", {
+                method: 'PATCH',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(resetObj),
+            })
             .then(r => r.json())
             .then(user => {
-                console.log('ba user update:', user)
+                console.log('ba user:', user)
                 setCurrentUser(user)
                 console.log('still inside reset:', currentUser)
                 currentUser.recommendations.forEach(rec => {
@@ -105,39 +114,49 @@ function App() {
                     })
 
                 })
-            }
-            )
+            })
     }
 
     function handleShowResult(user) {
+        //console.log(user)
         setTimeout(getReady, 3000);
         function getReady() {
             setCurrentUser(user);
         }
         if (currentUser) {
+            console.log("in:", user)
             fetch('http://localhost:3000/products')
                 .then(r => r.json())
                 .then((products) => {
-                    let userProducts = products.filter(p =>
-                    ((user.acne && p.skin_attribute === 'acne') ||
+                    console.log('pr:', products)
+                    let userProducts = products.filter(p => {
+                        console.log(user);
+                    return ((user.acne && p.skin_attribute === 'acne') ||
                         (user.oily_skin && p.skin_attribute === 'oily_skin') ||
                         (user.dry_skin && p.skin_attribute === 'dry_skin') ||
                         (user.combination_skin && p.skin_attribute === 'combination_skin')
-                    ));
+                    )
+                    }
+                    );
+                    console.log('pr:', userProducts)
+
                     addRecommended(userProducts);
+
                 });
         };
     }
     function addRecommended(products) {
         // setTimeout(getReady, 2000);
         // function getReady() {
+            console.log('pr:', products)
+
         setProductsMain(products)
         // }
         let recs = [];
         products.forEach(p => {
             let recommendedObj = {
                 user_id: currentUser.id,
-                product_id: p.id
+                product_id: p.id 
             };
             fetch(`http://localhost:3000/recommendations`, {
                 method: "POST",
@@ -156,7 +175,8 @@ function App() {
             // }
         });
     }
-
+// console.log('PM:', productsMain);
+// console.log("RS:", recommendationsState);
 
     function addSkinAttr(product) {
         let productIngArr = product.ingredients;
@@ -239,12 +259,11 @@ function App() {
                     <Route path="/home">
                         <Home key="home" />
                     </Route>
-                    currentUser.oily_skin !== null || currentUser.dry_skin !== null ||
-                                currentUser.combination_skin !== null || currentUser.acne !== null
-                                ||
                     <Route path="/quiz">
                         {currentUser ?
-                            recommendationsState.length > 0 ?
+                            currentUser.oily_skin !== null || currentUser.dry_skin !== null ||
+                                currentUser.combination_skin !== null || currentUser.acne !== null ||
+                                recommendationsState.length > 0 ?
                                 <div key={currentUser.id}>
                                     <h2>You have already taken the quiz!</h2>
                                     <Link to="/recommendations">See My Current Recommendations</Link><br />

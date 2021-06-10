@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 
 function Quiz({ currentUser, handleShowResult, setCurrentUser }) {
 
-    const history = useHistory();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [userAnswersObj, setUserAnswersObj] = useState({});
 
@@ -95,15 +94,17 @@ function Quiz({ currentUser, handleShowResult, setCurrentUser }) {
     // console.log(userAnswersObj)
     function patchUserInfo() {
         if (currentUser) {
-            fetch(`http://localhost:3000/users/${currentUser.id}`, {
+            const token = localStorage.getItem("token");
+            fetch(`http://localhost:3000/ba`, {
                 method: "PATCH",
                 headers: {
+                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(userAnswersObj),
             })
             .then(r=>r.json())
-            .then((obj) => handleShowResult(obj))
+            .then((user) => handleShowResult(user))
         };
     };
 
