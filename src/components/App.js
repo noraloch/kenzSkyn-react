@@ -77,7 +77,7 @@ function App() {
     };
 
     function onReset() {
-        setTimeout(set, 800);
+        setTimeout(set, 500);
         function set() {
             setRecommendationsState([])
         };
@@ -104,7 +104,7 @@ function App() {
                     fetch(`http://localhost:3000/recommendations/${rec.id}`, {
                         method: 'DELETE',
                     }).then(() => {
-                        setTimeout(st, 500)
+                        setTimeout(st, 200)
                         function st() {
                             setProductsMain([])
                         }
