@@ -89,7 +89,6 @@ function App() {
             sport_practice: null
         }
         const token = localStorage.getItem("token");
-        console.log('token: ', token)
             fetch("http://localhost:3000/ba", {
                 method: 'PATCH',
                 headers: {
@@ -100,9 +99,7 @@ function App() {
             })
             .then(r => r.json())
             .then(user => {
-                console.log('ba user:', user)
                 setCurrentUser(user)
-                console.log('still inside reset:', currentUser)
                 currentUser.recommendations.forEach(rec => {
                     fetch(`http://localhost:3000/recommendations/${rec.id}`, {
                         method: 'DELETE',
@@ -118,7 +115,6 @@ function App() {
     }
 
     function handleShowResult(user) {
-        //console.log(user)
         setTimeout(getReady, 3000);
         function getReady() {
             setCurrentUser(user);
@@ -128,9 +124,7 @@ function App() {
             fetch('http://localhost:3000/products')
                 .then(r => r.json())
                 .then((products) => {
-                    console.log('pr:', products)
                     let userProducts = products.filter(p => {
-                        console.log(user);
                     return ((user.acne && p.skin_attribute === 'acne') ||
                         (user.oily_skin && p.skin_attribute === 'oily_skin') ||
                         (user.dry_skin && p.skin_attribute === 'dry_skin') ||
@@ -138,7 +132,6 @@ function App() {
                     )
                     }
                     );
-                    console.log('pr:', userProducts)
 
                     addRecommended(userProducts);
 
@@ -148,8 +141,6 @@ function App() {
     function addRecommended(products) {
         // setTimeout(getReady, 2000);
         // function getReady() {
-            console.log('pr:', products)
-
         setProductsMain(products)
         // }
         let recs = [];
