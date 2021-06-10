@@ -32,9 +32,6 @@ function Login({ setCurrentUser, setRecommendationsState, setProductsMain  }) {
                 } else {
                   const {user, token} = data;
                   localStorage.setItem("token", token);
-                  console.log(user);
-                  console.log(user.recommendations);
-                  console.log(user.products)
                   setCurrentUser(user);
                   setRecommendationsState(user.recommendations);
                   setProductsMain(user.products);

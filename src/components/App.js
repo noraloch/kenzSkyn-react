@@ -223,13 +223,13 @@ function App() {
     }
 
 
-// main {
-//   margin-left: 15%;
-//   margin-top: 5%;
-//   margin-bottom: 6%;
-//   display: flex;
-//   max-width: 1280px backgroundColor: "#adc7b6"  maxWidth: "auto";
-// }
+    // main {
+    //   margin-left: 15%;
+    //   margin-top: 5%;
+    //   margin-bottom: 6%;
+    //   display: flex;
+    //   max-width: 1280px backgroundColor: "#adc7b6"  maxWidth: "auto";
+    // }
 
     return (
         <>
@@ -239,9 +239,12 @@ function App() {
                     <Route path="/home">
                         <Home key="home" />
                     </Route>
+                    currentUser.oily_skin !== null || currentUser.dry_skin !== null ||
+                                currentUser.combination_skin !== null || currentUser.acne !== null
+                                ||
                     <Route path="/quiz">
                         {currentUser ?
-                            currentUser.oily_skin !== null || currentUser.dry_skin !== null || currentUser.combination_skin !== null || currentUser.acne !== null || recommendationsState.length > 0 ?
+                            recommendationsState.length > 0 ?
                                 <div key={currentUser.id}>
                                     <h2>You have already taken the quiz!</h2>
                                     <Link to="/recommendations">See My Current Recommendations</Link><br />

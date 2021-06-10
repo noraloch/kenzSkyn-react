@@ -26,18 +26,18 @@ function NavBar({ currentUser, logout }) {
         } else {
             nav =
                 <>
-                    <a class="navbar-brand"><Link to="/home"><img style={{ size: "180px" }} className="logo" src="../logo.png" alt="logo" /></Link></a>
+                    <a className="navbar-brand"><Link to="/home"><img style={{ size: "180px" }} className="logo" src="../logo.png" alt="logo" /></Link></a>
                     <div style={{ marginLeft: "24%" }}>
                     <div className="welcome" > Welcome, {currentUser.first_name}! </div>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav">
-                                <a class="nav-item nav-link"><Link to="/home" className="link">Home</Link></a>
-                                <a class="nav-item nav-link"><Link to="/profile" className="link">Profile</Link></a>
-                                <a class="nav-item nav-link"><Link to="/quiz" className="link">Quiz</Link></a>
-                                <a class="nav-item nav-link"><button onClick={logout}>Logout</button></a>
+                        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div className="navbar-nav">
+                                <a className="nav-item nav-link"><Link to="/home" className="link">Home</Link></a>
+                                <a className="nav-item nav-link"><Link to="/profile" className="link">Profile</Link></a>
+                                <a className="nav-item nav-link"><Link to="/quiz" className="link">Quiz</Link></a>
+                                <a className="nav-item nav-link"><button onClick={logout}>Logout</button></a>
                             </div>
                         </div>
                     </div>
@@ -45,16 +45,16 @@ function NavBar({ currentUser, logout }) {
         }
     } else {
         nav = <>
-            <a class="navbar-brand"><Link to="/home"><img style={{ size: "180px" }} className="logo" src="../logo.png" alt="logo" /></Link></a>
+            <a className="navbar-brand"><Link to="/home"><img style={{ size: "180px" }} className="logo" src="../logo.png" alt="logo" /></Link></a>
             <div style={{ marginLeft: "38%" }}>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-item nav-link"><Link to="/home" className="link">Home</Link></a>
-                        <a class="nav-item nav-link"><Link to="/login" className="link">Login</Link></a>
-                        <a class="nav-item nav-link"><Link to="/signup" className="link">Signup</Link></a>
+                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div className="navbar-nav">
+                        <a className="nav-item nav-link"><Link to="/home" className="link">Home</Link></a>
+                        <a className="nav-item nav-link"><Link to="/login" className="link">Login</Link></a>
+                        <a className="nav-item nav-link"><Link to="/signup" className="link">Signup</Link></a>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@ function NavBar({ currentUser, logout }) {
     };
 
     return (
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
             {nav}
         </nav>
     );
