@@ -25,7 +25,7 @@ function App() {
         const token = localStorage.getItem("token");
         console.log('token: ', token)
         if (token) {
-            fetch("http://localhost:3000/ba", {
+            fetch(`${process.env.REACT_APP_RAILS_URL}/ba`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -89,7 +89,7 @@ function App() {
             sport_practice: null
         }
         const token = localStorage.getItem("token");
-            fetch("http://localhost:3000/ba", {
+            fetch(`${process.env.REACT_APP_RAILS_URL}/ba`, {
                 method: 'PATCH',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -101,7 +101,7 @@ function App() {
             .then(user => {
                 setCurrentUser(user)
                 currentUser.recommendations.forEach(rec => {
-                    fetch(`http://localhost:3000/recommendations/${rec.id}`, {
+                    fetch(`${process.env.REACT_APP_RAILS_URL}/${rec.id}`, {
                         method: 'DELETE',
                     }).then(() => {
                         setTimeout(st, 200)
@@ -121,7 +121,7 @@ function App() {
         }
         if (currentUser) {
             console.log("in:", user)
-            fetch('http://localhost:3000/products')
+            fetch(`${process.env.REACT_APP_RAILS_URL}/products`)
                 .then(r => r.json())
                 .then((products) => {
                     let userProducts = products.filter(p => {
@@ -149,7 +149,7 @@ function App() {
                 user_id: currentUser.id,
                 product_id: p.id 
             };
-            fetch(`http://localhost:3000/recommendations`, {
+            fetch(`${process.env.REACT_APP_RAILS_URL}/recommendations`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -221,11 +221,11 @@ function App() {
         }
         let attrToAdd = { skin_attribute: bestSuitedSkinAttr };
 
-        fetch(`http://localhost:3000/products/${product.id}`, createRequestOptions('PATCH', attrToAdd))
+        fetch(`${process.env.REACT_APP_RAILS_URL}/${product.id}`, createRequestOptions('PATCH', attrToAdd))
             .then(r => r.json())
             .then(product => { console.log(product) })
 
-        fetch(`http://localhost:3000/products`)
+        fetch(`${process.env.REACT_APP_RAILS_URL}/products`)
             .then(r => r.json())
             .then((prods) => { setTimeout(wait(prods), 2000) })
         function wait(prods) {

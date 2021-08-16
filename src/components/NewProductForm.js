@@ -42,7 +42,7 @@ function NewProductForm({ onAddProduct, addSkinAttr }) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        let postProductsPromise = fetch('http://localhost:3000/products', createRequestionOptions('POST', newProduct));
+        let postProductsPromise = fetch(`${process.env.REACT_APP_RAILS_URL}/products`, createRequestionOptions('POST', newProduct));
         let ingredientsPromises = newIngredientsArray.map((ingredient, i) => {
             let num = i + 1;
             let nameKey = "ingredient" + num;
@@ -53,7 +53,7 @@ function NewProductForm({ onAddProduct, addSkinAttr }) {
                 short_description: ingredient[descKey]
             }
 
-            return fetch('http://localhost:3000/ingredients', createRequestionOptions('POST', ingredientForDB))
+            return fetch(`${process.env.REACT_APP_RAILS_URL}/ingredients`, createRequestionOptions('POST', ingredientForDB))
         })
 
         Promise.all([postProductsPromise, ...ingredientsPromises])
@@ -67,7 +67,7 @@ function NewProductForm({ onAddProduct, addSkinAttr }) {
                             product_id: parseInt(productRes.id),
                             ingredient_id: parseInt(ingredientRes.id)
                         }
-                        fetch('http://localhost:3000/product_ingredients', createRequestionOptions('POST', prodIngred))
+                        fetch(`${process.env.REACT_APP_RAILS_URL}/product_ingredients`, createRequestionOptions('POST', prodIngred))
                     })
                     Promise.all(productToIngredientPromises)
                         .then(() => {
@@ -75,7 +75,7 @@ function NewProductForm({ onAddProduct, addSkinAttr }) {
                             let id = parseInt(productRes.id);
                             setTimeout(getFinal, 2000)
                             function getFinal() {
-                                fetch(`http://localhost:3000/products/${id}`)
+                                fetch(`${process.env.REACT_APP_RAILS_URL}/products/${id}`)
                                     .then(res => res.json())
                                     .then(finalProductRes => {
                                         addSkinAttr(finalProductRes);

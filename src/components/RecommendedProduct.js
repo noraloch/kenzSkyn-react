@@ -9,7 +9,7 @@ function RecommendedProduct({ productObj, recommendedObj }) {
     const [savedState, setSavedState] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/recommendations/${rId}`)
+        fetch(`${process.env.REACT_APP_RAILS_URL}/recommendations/${rId}`)
             .then(r => r.json())
             .then((recObj) => {
                 if (recObj.saved) {
@@ -24,7 +24,7 @@ function RecommendedProduct({ productObj, recommendedObj }) {
             saved: true,
         }
         //fetch patch the saved boolean
-        fetch(`http://localhost:3000/recommendations/${rId}`, {
+        fetch(`${process.env.REACT_APP_RAILS_URL}/recommendations/${rId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

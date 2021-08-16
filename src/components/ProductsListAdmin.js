@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 function ProductsListAdmin({ adminProducts, setAdminProducts }) {
 
     useEffect(() => {
-            fetch("http://localhost:3000/products")
+            fetch(`${process.env.REACT_APP_RAILS_URL}/products`)
                 .then((r) => r.json())
                 .then((productsArr) => setAdminProducts(productsArr))
     }, []);

@@ -12,7 +12,7 @@ function Profile({ currentUser }) {
 
     useEffect(() => {
         if (currentUser){
-            fetch(`http://localhost:3000/users/${currentUser.id}`)
+            fetch(`${process.env.REACT_APP_RAILS_URL}/users/${currentUser.id}`)
                 .then((r) => r.json())
                 .then((user) => {
                     console.log(user)

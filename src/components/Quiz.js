@@ -95,7 +95,7 @@ function Quiz({ currentUser, handleShowResult, setCurrentUser }) {
     function patchUserInfo() {
         if (currentUser) {
             const token = localStorage.getItem("token");
-            fetch(`http://localhost:3000/ba`, {
+            fetch(`${process.env.REACT_APP_RAILS_URL}/ba`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${token}`,
