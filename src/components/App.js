@@ -247,9 +247,6 @@ function App() {
             <NavBar key="navbar" currentUser={currentUser} logout={logout} />
             <div style={{ margin: "5%", display: "flex", position: "static" }}>
                 <Switch>
-                    <Route path="/">
-                        <Home key="home" />
-                    </Route>
                     <Route path="/quiz">
                         {currentUser ?
                             currentUser.oily_skin !== null || currentUser.dry_skin !== null ||
@@ -280,6 +277,9 @@ function App() {
                     </Route>
                     <Route path="/available-products">
                         <ProductsListAdmin key="products" adminProducts={adminProducts} setAdminProducts={setAdminProducts} />
+                    </Route>
+                    <Route path="/">
+                        <Home key="home" />
                     </Route>
                 </Switch>
             </div>
