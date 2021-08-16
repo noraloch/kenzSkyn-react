@@ -246,6 +246,7 @@ function App() {
         <>
             <NavBar key="navbar" currentUser={currentUser} logout={logout} />
             <div style={{ margin: "5%", display: "flex", position: "static" }}>
+            <Home key="home"/>
                 <Switch>
                     <Route path="/home">
                         <Home key="home" />
