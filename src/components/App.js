@@ -247,7 +247,7 @@ function App() {
             <NavBar key="navbar" currentUser={currentUser} logout={logout} />
             <div style={{ margin: "5%", display: "flex", position: "static" }}>
                 <Switch>
-                    <Route path="/home">
+                    <Route path="/">
                         <Home key="home" />
                     </Route>
                     <Route path="/quiz">
