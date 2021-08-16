@@ -17,12 +17,3 @@ It recommends products by matching their ingredients with the ingredients that t
 ## Running on localhost
 
 `npm start`
-
-
-## Deploying
-
-What are the steps necessary to deploy the built artifact (if there is a built artifact). Deployments needs to occur reproducibly via a central CI system, the instructions here should represent that.
-
-*Make sure to describe where the artifacts are located and how to verify they are available*
-
-to do @Noura
