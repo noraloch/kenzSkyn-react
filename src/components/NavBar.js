@@ -53,7 +53,7 @@ function NavBar({ currentUser, logout }) {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <a className="nav-item nav-link"><Link to="/home" className="link">Home</Link></a>
-                        <a className="nav-item nav-link"><Link to="/login test" className="link">Login</Link></a>
+                        <a className="nav-item nav-link"><Link to="/login" className="link">Login</Link></a>
                         <a className="nav-item nav-link"><Link to="/signup" className="link">Signup</Link></a>
                     </div>
                 </div>
